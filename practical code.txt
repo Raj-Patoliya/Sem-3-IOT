@@ -1,0 +1,110 @@
+Q1.	Led light
+
+void setup()
+{
+  pinMode(2, OUTPUT);
+}
+void loop()
+{
+  digitalWrite(2, HIGH);
+  delay(1000);
+  degitalWrite(2,LOW);
+  delay(1000)
+}
+
+
+Q2.	Ultrasonic sensor (Distance)
+
+#define Trigger_Pin 3
+#define Echo_Pin 2
+double dur, dist;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(Trigger_Pin,OUTPUT);
+  pinMode(Echo_Pin,INPUT);
+}
+
+void loop() {
+    digitalWrite(Trigger_Pin, LOW);
+    delayMicroseconds(5);
+    digitalWrite(Trigger_Pin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(Trigger_Pin, LOW);
+    dur = pulseIn(Echo_Pin,HIGH);
+    dist = dur * 0.034/2;
+
+    Serial.println(dur);
+    Serial.println(dist);
+    delay(1000);
+}
+
+Q3.	gash sensor
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(A0,INPUT);
+}
+
+void loop() {
+  Serial.print("Sensor Reading = ");
+  Serial.println(analogRead(A0));
+  float gas = analogRead(A0);
+  if(gas>100){
+	Serial.println("Gash dictected");
+  }else{
+	Serial.println("Gash not dictected");
+  }
+  delay(1000);
+}
+
+
+Q4.	tgemprature sonsor with buzzer
+
+
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+OneWire oneWire(8);
+DallasTemperature sensors(&oneWire);
+
+void setup(void)
+{
+  Serial.begin(9600);
+  pinMode(8, INPUT);
+  sensors.begin();
+}
+void loop(void)
+{ 
+  Serial.print("Requesting temperatures...");
+  sensors.requestTemperatures();
+  Serial.print("Temperature = ");
+  Serial.println(sensors.getTempCByIndex(0));
+  
+  delay(1000);
+}
+
+
+Q5. IR sensor
+
+void setup() {
+  pinMode(11,INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int isObstacle = digitalRead(11);
+  if(isObstacle == LOW)
+  {
+    Serial.println("OBSTACLE FOUND");
+  }
+  else
+  {
+    Serial.println("CLEAR");
+  }
+  delay(200);
+}
+
+
+
